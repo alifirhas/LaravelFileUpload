@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -44,6 +45,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        if ($request->hasFile('avatar')) {
+            // $avatar = $request->file('avatar')->getClientOriginalName(); //get original name
+            $extension = $request->file('avatar')->extension();
+            $avatar = $user->id . '-' . Str::random(20) . '.' . $extension;
+            $request->file('avatar')->storeAs('avatars', $avatar, '');
+            $user->update(['avatar' => $avatar]);
+        }
 
         event(new Registered($user));
 
