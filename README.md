@@ -1,5 +1,7 @@
 # LaravelFileUpload - Laravel 8.0+ Breeze and Tailwind CSS
 
+Project dibuat sebagai tugas untuk mempelajari file upload atau transaksi file pada Laravel.
+
 Project ini Dibuat dengan
 - [Laravel Breeze](https://laravel.com/docs/8.x/starter-kits)
 
